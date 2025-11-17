@@ -29,6 +29,6 @@ jobs:
       - name: Run Lint
         uses: glasnt/trifle/actions/steps/map-run@v0.0.10
         with:
-          command: black *.py
+          command: black --check
           paths: ${{ inputs.paths }}
           outputs-always: true

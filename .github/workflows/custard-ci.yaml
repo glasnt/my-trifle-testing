@@ -13,9 +13,9 @@ on:
 
 jobs:
 
-  # Find the packages that were changed 
+  # Find the packages that were changed
   affected:
-    uses: GoogleCloudPlatform/cloud-samples-tools/.github/workflows/affected.yaml@rework-pudding
+    uses: glasnt/trifle/.github/workflows/affected.yaml@v0.0.0
     permissions:
       statuses: write
     with:
@@ -28,14 +28,14 @@ jobs:
     uses: ./.github/workflows/lint.yaml
     with:
         paths: ${{ needs.affected.outputs.paths }}
-      
+
   # Run tests against changed packages
   test:
     needs: affected
     runs-on: ubuntu-latest
     steps:
       - name: Run linter
-        uses: GoogleCloudPlatform/cloud-samples-tools/actions/steps/map-run@rework-pudding
+        uses: glasnt/trifle/actions/steps/map-run@v0.0.0
         with:
           command: pip install -r requirements-test.txt && pytest
           paths: ${{ needs.affected.outputs.paths }}
@@ -47,7 +47,7 @@ jobs:
     permissions:
       statuses: write
     steps:
-      - uses: GoogleCloudPlatform/cloud-samples-tools/actions/steps/update-check@rework-pudding
+      - uses: glasnt/trifle/actions/steps/update-check@v0.0.0
         with:
           check: ${{ needs.affected.outputs.check }}
           status: success

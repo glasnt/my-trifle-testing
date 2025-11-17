@@ -15,7 +15,7 @@ jobs:
 
   # Find the packages that were changed
   affected:
-    uses: glasnt/trifle/.github/workflows/affected.yaml@v0.0.4
+    uses: glasnt/trifle/.github/workflows/affected.yaml@v0.0.6
     permissions:
       statuses: write
     with:
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run linter
-        uses: glasnt/trifle/actions/steps/map-run@v0.0.4
+        uses: glasnt/trifle/actions/steps/map-run@v0.0.6
         with:
           command: pip install -r requirements-test.txt && pytest
           paths: ${{ needs.affected.outputs.paths }}
@@ -47,7 +47,7 @@ jobs:
     permissions:
       statuses: write
     steps:
-      - uses: glasnt/trifle/actions/steps/update-check@v0.0.4
+      - uses: glasnt/trifle/actions/steps/update-check@v0.0.6
         with:
           check: ${{ needs.affected.outputs.check }}
           status: success

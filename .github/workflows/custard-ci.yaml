@@ -34,8 +34,7 @@ jobs:
     needs: affected
     runs-on: ubuntu-latest
     steps:
-      - name: Run linter
-        uses: glasnt/trifle/actions/steps/map-run@v0.0.10
+      - uses: glasnt/trifle/actions/steps/map-run@v0.0.10
         with:
           command: pip install -r requirements-test.txt && pytest
           paths: ${{ needs.affected.outputs.paths }}

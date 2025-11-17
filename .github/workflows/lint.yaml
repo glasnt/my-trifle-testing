@@ -27,7 +27,7 @@ jobs:
           pip install black
           echo "Contents of paths-json: ${{ inputs.paths-json }}"
       - name: Run Lint
-        uses: glasnt/trifle/actions/steps/map-run@v0.0.9
+        uses: glasnt/trifle/actions/steps/map-run@v0.0.10
         with:
           command: black *.py
           paths: ${{ inputs.paths }}

@@ -1,0 +1,53 @@
+name: custard-ci
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .github/custard/test/**
+  pull_request:
+    paths-ignore:
+      - .github/custard/test/**
+  workflow_dispatch:
+
+jobs:
+
+  # Find the packages that were changed 
+  affected:
+    uses: GoogleCloudPlatform/cloud-samples-tools/.github/workflows/affected.yaml@rework-pudding
+    permissions:
+      statuses: write
+    with:
+      head-sha: ${{ github.event.workflow_run.head_sha || github.sha }}
+      config-file: .github/config.jsonc
+
+  # Run linting against changed packages (command is run in cwd of affected path)
+  lint:
+    needs: affected
+    uses: ./.github/workflows/lint.yaml
+    with:
+        paths: ${{ needs.affected.outputs.paths }}
+      
+  # Run tests against changed packages
+  test:
+    needs: affected
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run linter
+        uses: GoogleCloudPlatform/cloud-samples-tools/actions/steps/map-run@rework-pudding
+        with:
+          command: pip install -r requirements-test.txt && pytest
+          paths: ${{ needs.affected.outputs.paths }}
+
+  # Confirm all checks complete
+  done:
+    needs: [affected, test, lint]
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write
+    steps:
+      - uses: GoogleCloudPlatform/cloud-samples-tools/actions/steps/update-check@rework-pudding
+        with:
+          check: ${{ needs.affected.outputs.check }}
+          status: success

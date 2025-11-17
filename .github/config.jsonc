@@ -1,0 +1,21 @@
+{
+  "package-file": [
+    "package.json", // Node
+    "requirements.txt", // Python
+    "go.mod" // Go
+  ],
+  "ci-setup-filename": "ci-setup.json",
+  "ci-setup-defaults": {
+    "env": {},
+    "secrets": {},
+    "node-version": 20,
+    "timeout-minutes": 10
+  },
+  "ignore": [
+    ".github/",
+    ".gitignore",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "README.md"
+  ]
+}

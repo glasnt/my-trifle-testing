@@ -15,7 +15,7 @@ jobs:
 
   # Find the packages that were changed
   affected:
-    uses: glasnt/trifle/.github/workflows/affected.yaml@v0.0.10
+    uses: glasnt/trifle/.github/workflows/affected.yaml@debugging-matchPackages
     permissions:
       statuses: write
     with:

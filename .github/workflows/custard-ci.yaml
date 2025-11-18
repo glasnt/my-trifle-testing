@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:
-          command: echo "hi"
+          command: echo hi
           paths: ${{ needs.affected.outputs.paths }}
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:

@@ -28,24 +28,6 @@ jobs:
     with:
         paths: ${{ needs.affected.outputs.paths }}
 
-  debugging:
-    needs: affected
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
-        with:
-          command: echo hi
-          paths: ${{ needs.affected.outputs.paths }}
-      - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
-        with:
-          command: python --version
-          paths: ${{ needs.affected.outputs.paths }}
-      - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
-        with:
-          command: node --version
-          paths: ${{ needs.affected.outputs.paths }}
-
   # Run tests against changed packages
   test:
     needs: affected

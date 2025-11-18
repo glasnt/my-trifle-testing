@@ -43,7 +43,7 @@ jobs:
           paths: ${{ needs.affected.outputs.paths }}
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:
-          command: npm --version
+          command: node --version
           paths: ${{ needs.affected.outputs.paths }}
 
   # Run tests against changed packages

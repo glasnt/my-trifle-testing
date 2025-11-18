@@ -33,13 +33,13 @@ jobs:
     needs: affected
     runs-on: ubuntu-latest
     # Only run this test if python folder is changed.
-    if: ${{ contains(needs.affected.outputs.paths, "python") }}
+    if: contains(needs.affected.outputs.paths, 'python')
     steps:
       - uses: actions/checkout@v4
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:
           command: pip install -r requirements-test.txt && pytest
-          paths: ${{ toJson("[python]")}}
+          paths: toJson('[python]')
 
   # Confirm all checks complete
   done:

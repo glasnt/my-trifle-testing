@@ -33,6 +33,7 @@ jobs:
     needs: affected
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:
           command: echo hi
@@ -45,8 +46,6 @@ jobs:
         with:
           command: npm --version
           paths: ${{ needs.affected.outputs.paths }}
-
-
 
   # Run tests against changed packages
   test:

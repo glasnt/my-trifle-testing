@@ -37,15 +37,15 @@ jobs:
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:
           command: echo hi
-          paths: "[.]" # workaround
+          paths: ${{ needs.affected.outputs.paths }}
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:
           command: python --version
-          paths: "[.]" # workaround
+          paths: ${{ needs.affected.outputs.paths }}
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:
           command: npm --version
-          paths: "[.]" # workaround
+          paths: ${{ needs.affected.outputs.paths }}
 
   # Run tests against changed packages
   test:

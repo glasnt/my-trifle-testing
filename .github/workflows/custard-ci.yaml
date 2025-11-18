@@ -12,7 +12,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
   # Find the packages that were changed
   affected:
     uses: glasnt/trifle/.github/workflows/affected.yaml@debugging-matchPackages

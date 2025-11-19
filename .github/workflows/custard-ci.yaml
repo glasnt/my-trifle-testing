@@ -39,7 +39,10 @@ jobs:
       - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
         with:
           command: pip install -r requirements-test.txt && pytest
-          paths: ${{ toJson('[python]') }}
+          paths: |
+            [
+              "python"
+            ]
 
   # Confirm all checks complete
   done:

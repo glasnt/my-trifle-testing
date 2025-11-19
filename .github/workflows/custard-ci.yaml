@@ -14,7 +14,7 @@ on:
 jobs:
   # Find the packages that were changed
   affected:
-    uses: glasnt/trifle/.github/workflows/affected.yaml@debugging-matchPackages
+    uses: glasnt/trifle/.github/workflows/affected.yaml@v0.1.0
     permissions:
       statuses: write
     with:
@@ -36,7 +36,7 @@ jobs:
     if: contains(needs.affected.outputs.paths, 'python')
     steps:
       - uses: actions/checkout@v4
-      - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
+      - uses: glasnt/trifle/actions/steps/map-run@v0.1.0
         with:
           command: pip install -r requirements-test.txt && pytest
           paths: |

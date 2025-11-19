@@ -4,17 +4,6 @@
     "requirements.txt", // Python
     "go.mod" // Go
   ],
-  // Common CI commands for each execution.
-  "commands": {
-      "lint": {
-          "pre": "pip install black",
-          "run": "black --check ."
-      },
-      "test": {
-          "pre": "pip install pytest",
-          "run": "pytest"
-      }
-  },
   "ci-setup-filename": "ci-setup.json",
   "ci-setup-defaults": {
     "env": {},

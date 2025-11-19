@@ -21,27 +21,32 @@ jobs:
       head-sha: ${{ github.event.workflow_run.head_sha || github.sha }}
       config-file: .github/config.jsonc
 
-  # Run the custard run lint command
+  # Run linting against changed packages (command is run in cwd of affected path)
   lint:
     needs: affected
-    uses: glasnt/trifle/actions/steps/custard-run@debugging-matchPackages
+    uses: ./.github/workflows/lint.yaml
     with:
-      custard-command: lint
-      paths: ${{ needs.affected.outputs.paths }}
-      config-file: .github/config.jsonc
+        paths: ${{ needs.affected.outputs.paths }}
 
-  # Run the custard run test command
-  test:
+  # Run tests against changed packages
+  test-python:
     needs: affected
-    uses: glasnt/trifle/actions/steps/custard-run@debugging-matchPackages
-    with:
-      custard-command: test
-      paths: ${{ needs.affected.outputs.paths }}
-      config-file: .github/config.jsonc
+    runs-on: ubuntu-latest
+    # Only run this test if python folder is changed.
+    if: contains(needs.affected.outputs.paths, 'python')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: glasnt/trifle/actions/steps/map-run@debugging-matchPackages
+        with:
+          command: pip install -r requirements-test.txt && pytest
+          paths: |
+            [
+              "python"
+            ]
 
   # Confirm all checks complete
   done:
-    needs: [affected, test, lint]
+    needs: [affected, test-python, lint]
     runs-on: ubuntu-latest
     permissions:
       statuses: write

@@ -27,7 +27,7 @@ jobs:
         uses: google-github-actions/auth@v3
         with:
           project_id: ${{ env.GOOGLE_SAMPLES_PROJECT }}
-          workload_identity_provider: projects/${{env.GOOGLE_SAMPLES_PROJECT_NUM}}/locations/global/workloadIdentityPools/github-actions/providers/github-actions-provider
+          workload_identity_provider: projects/${{env.GOOGLE_SAMPLES_PROJECT_NUM}}/locations/global/workloadIdentityPools/dev1-wif-pool/providers/dev-pool
           service_account: ${{ env.GOOGLE_SERVICE_ACCOUNT }}
           access_token_lifetime: 600s # 10 minutes
           token_format: 'id_token'

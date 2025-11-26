@@ -31,6 +31,9 @@ jobs:
   # Run system checks
   system:
     needs: affected
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     uses: ./.github/workflows/system.yaml
     with:
         paths: ${{ needs.affected.outputs.paths }}

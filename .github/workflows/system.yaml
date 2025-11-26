@@ -14,9 +14,6 @@ jobs:
   system:
     if: inputs.paths != '[]'
     runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
     env:
       GOOGLE_SAMPLES_PROJECT: glasnt-trifle-wif-1122
       GOOGLE_SAMPLES_PROJECT_NUM: 250691723666

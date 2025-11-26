@@ -38,7 +38,7 @@ jobs:
 
   # Confirm all checks complete
   done:
-    needs: [affected, test-python, lint]
+    needs: [affected, lint, system]
     runs-on: ubuntu-latest
     permissions:
       statuses: write

@@ -9,6 +9,7 @@ on:
         required: true
         type: string
 
+
 jobs:
   system:
     if: inputs.paths != '[]'

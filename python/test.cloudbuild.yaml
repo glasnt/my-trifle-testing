@@ -1,0 +1,6 @@
+steps:
+
+- name: ubuntu:slim
+  id: Hello, world
+  script: |
+    echo "Hello, I'm running in Cloud Build. "

@@ -1,0 +1,44 @@
+# This workflow runs WIF and Cloud Build
+
+
+name: system
+on:
+  workflow_call:
+    inputs:
+      paths:
+        description: A JSON list of package paths.
+        required: true
+        type: string
+
+jobs:
+  system:
+    if: inputs.paths != '[]'
+    runs-on: ubuntu-latest
+    env:
+      GOOGLE_SAMPLES_PROJECT: glasnt-trifle-wif-1122
+      GOOGLE_SAMPLES_PROJECT_NUM: 250691723666
+      GOOGLE_SERVICE_ACCOUNT: trifle-testing-sa@glasnt-trifle-wif-1122.iam.gserviceaccount.com
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.head-sha }}
+      - name: Setup WIF
+        uses: google-github-actions/auth
+        with:
+          project_id: ${{ env.GOOGLE_SAMPLES_PROJECT }}
+          workload_identity_provider: projects/${{env.GOOGLE_SAMPLES_PROJECT_NUM}}/locations/global/workloadIdentityPools/github-actions/providers/github-actions-provider
+          service_account: ${{ env.GOOGLE_SERVICE_ACCOUNT }}
+          access_token_lifetime: 600s # 10 minutes
+          token_format: 'id_token'
+          id_token_audience: 'https://action.test/' # service must have this custom audience
+          id_token_include_email: true
+      - name: Run tests
+        run: |
+          pip install black
+          echo "Contents of paths-json: ${{ inputs.paths }}"
+      - name: Run Tests
+        uses: glasnt/trifle/actions/steps/map-run@v0.1.0
+        with:
+          command: make test
+          paths: ${{ inputs.paths }}

@@ -28,21 +28,13 @@ jobs:
     with:
         paths: ${{ needs.affected.outputs.paths }}
 
-  # Run tests against changed packages
-  test-python:
+  # Run system checks
+  system:
     needs: affected
-    runs-on: ubuntu-latest
-    # Only run this test if python folder is changed.
-    if: contains(needs.affected.outputs.paths, 'python')
-    steps:
-      - uses: actions/checkout@v4
-      - uses: glasnt/trifle/actions/steps/map-run@v0.1.0
-        with:
-          command: pip install -r requirements-test.txt && pytest
-          paths: |
-            [
-              "python"
-            ]
+    uses: ./.github/workflows/system.yaml
+    with:
+        paths: ${{ needs.affected.outputs.paths }}
+
 
   # Confirm all checks complete
   done:

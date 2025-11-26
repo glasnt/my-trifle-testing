@@ -1,6 +1,5 @@
 # This workflow runs WIF and Cloud Build
 
-
 name: system
 on:
   workflow_call:
